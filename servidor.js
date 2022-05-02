@@ -20,6 +20,8 @@ http.createServer(function (request, response) {
         '.gif': 'image/gif'
     };
 
+contentType =mimeTypes[extname] || 'application/octet-stream';
+
     fs.readFile(filePath, function (error, content) {
         if (error) {
             if (error.code == 'ENOENT') {
