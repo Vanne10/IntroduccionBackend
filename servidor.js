@@ -1,9 +1,8 @@
-var http = require('http');
+var https = require('http');
 var fs = require('fs');
-const path = require('path');
-var path = require(path);
+var path = require('path');
 
-http.createServer(function (request, response) {
+https.createServer(function (request, response) {
     console.log('request', request.url);
 
     var filePath = '.' + request.url;
@@ -17,10 +16,20 @@ http.createServer(function (request, response) {
         '.html': 'text/html',
         '.js': 'text/javascript',
         '.css': 'text/css',
-        '.gif': 'image/gif'
+        '.json': 'aplication/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpg',
+        '.gif': 'image/gif',
+        '.wav': 'audio/wav',
+        '.mp4': 'video/mp4',
+        '.woff': 'aplication/font-woff',
+        '.ttf': 'aplication/font-ttf',
+        '.eot': 'aplication/vnd.ms-fontobject',
+        '.otf': 'aplication/font-otf',
+        '.svg': 'aplication/image/svg+xml',
     };
 
-contentType =mimeTypes[extname] || 'application/octet-stream';
+    contentType = mimeTypes[extname] || 'application/octet-stream';
 
     fs.readFile(filePath, function (error, content) {
         if (error) {
@@ -29,18 +38,15 @@ contentType =mimeTypes[extname] || 'application/octet-stream';
                     response.writeHead(200, { 'Content-Type': contentType });
                     response.end(content, 'utf-8');
                 });
-            }
-            else {
+            } else {
                 response.writeHead(500);
-                response.end('Sorry, check with the site admin for error ' + error.code + '..\n');
+                response.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
                 response.end();
             }
-        }
-        else {
+        } else {
             response.writeHead(200, { 'Content-Type': contentType });
             response.end(content, 'utf-8');
         }
     });
-
 }).listen(3000);
-console.log('Server running at http://127.0.0.1:3000/');
+console.log('Server running at');
